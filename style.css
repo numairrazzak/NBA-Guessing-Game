@@ -341,7 +341,16 @@ body {
     border-bottom: 2px solid var(--border-color);
 }
 
+.header-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
 .header-logo {
+    flex: 1;
     font-size: 1.5rem;
     font-weight: 900;
     text-decoration: none;
@@ -368,7 +377,9 @@ body {
 .header-logo .logo-letter:nth-child(7) { color: #FCBAD3; }
 
 .header-stats {
+    flex: 1;
     display: flex;
+    justify-content: center;
     gap: 32px;
 }
 
