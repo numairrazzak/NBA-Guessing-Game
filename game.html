@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nbardle - Play</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="game-page">
+    <div class="app-container">
+        <!-- Left Sidebar - Team Roster -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2 id="roster-title">TEAM ROSTER</h2>
+            </div>
+            <div class="roster-list" id="roster-list">
+                <p class="roster-placeholder">Roster will appear when the game starts...</p>
+            </div>
+        </aside>
+
+        <!-- Main Game Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="game-header">
+                <a href="index.html" class="header-logo">
+                    <span class="logo-letter">N</span><span class="logo-letter">b</span><span class="logo-letter">a</span><span class="logo-letter">r</span><span class="logo-letter">d</span><span class="logo-letter">l</span><span class="logo-letter">e</span>
+                </a>
+                <div class="header-stats">
+                    <div class="header-stat">
+                        <span class="header-stat-label">Score</span>
+                        <span class="header-stat-value stat-score" id="score">0</span>
+                        <span class="score-animation" id="score-animation"></span>
+                    </div>
+                    <div class="header-stat">
+                        <span class="header-stat-label">Streak</span>
+                        <span class="header-stat-value stat-streak" id="current-streak">0</span>
+                    </div>
+                    <div class="header-stat">
+                        <span class="header-stat-label">Players</span>
+                        <span class="header-stat-value stat-players" id="players-attempted">0</span>
+                    </div>
+                </div>
+                <button class="stats-btn" id="stats-btn">Stats</button>
+                <a href="index.html" class="back-btn">← Home</a>
+            </header>
+
+            <!-- Game Content -->
+            <div class="game-content">
+                <!-- Round Indicator -->
+                <div class="round-section">
+                    <div class="round-display">
+                        <span class="round-label">Round</span>
+                        <span class="round-number" id="current-round">1</span>
+                        <span class="round-of">of 3</span>
+                    </div>
+                    <div class="round-progress">
+                        <div class="progress-fill" id="progress-bar"></div>
+                    </div>
+                    <div class="round-dots">
+                        <span class="round-dot active"></span>
+                        <span class="round-dot"></span>
+                        <span class="round-dot"></span>
+                    </div>
+                    <div class="points-available">
+                        <span id="max-points">150</span> points available
+                    </div>
+                </div>
+
+                <!-- Hints Section -->
+                <div class="hints-section">
+                    <div class="hint-card revealed" id="hint-card-1">
+                        <span class="hint-label">Team & PPG</span>
+                        <span class="hint-value" id="hint-value-1">---</span>
+                    </div>
+                    <div class="hint-card locked" id="hint-card-2">
+                        <span class="hint-label" id="hint-label-2">Your Pick</span>
+                        <span class="hint-value" id="hint-value-2">🔒</span>
+                    </div>
+                    <div class="hint-card locked" id="hint-card-3">
+                        <span class="hint-label" id="hint-label-3">Your Pick</span>
+                        <span class="hint-value" id="hint-value-3">🔒</span>
+                    </div>
+                </div>
+
+                <!-- Stat Selection -->
+                <div class="stat-selection hidden" id="stat-selection">
+                    <p class="selection-prompt" id="selection-prompt">Choose a stat to reveal:</p>
+                    <div class="stat-categories" id="stat-categories"></div>
+                </div>
+
+                <!-- Guess Input -->
+                <div class="input-section">
+                    <div class="autocomplete-wrapper">
+                        <input
+                            type="text"
+                            id="player-input"
+                            placeholder="Type player name..."
+                            autocomplete="off"
+                        >
+                        <div class="autocomplete-dropdown hidden" id="autocomplete-dropdown"></div>
+                    </div>
+                    <button class="submit-btn" id="submit-btn">Submit Guess</button>
+                </div>
+
+                <!-- Feedback -->
+                <div class="feedback hidden" id="feedback">
+                    <span class="feedback-text" id="feedback-text"></span>
+                </div>
+
+                <!-- Guess History -->
+                <div class="history-section">
+                    <h3>Guess History</h3>
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Round</th>
+                                <th>Your Guess</th>
+                                <th>Result</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-body">
+                            <tr><td colspan="4" class="history-empty">No guesses yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Next Player Button -->
+                <button class="next-btn hidden" id="next-btn">Next Player →</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Loading players...</p>
+    </div>
+
+    <!-- Name Entry Modal -->
+    <div class="modal-overlay" id="name-modal">
+        <div class="modal name-modal">
+            <div class="modal-header">
+                <h2>Welcome to Nbardle!</h2>
+            </div>
+            <div class="modal-body">
+                <p class="name-prompt">Enter your name to track your high scores:</p>
+                <input type="text" id="player-name-input" placeholder="Your name..." maxlength="20" autocomplete="off">
+                <button class="play-btn name-submit-btn" id="name-submit-btn">Start Playing</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Modal -->
+    <div class="modal-overlay hidden" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Session Stats</h2>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

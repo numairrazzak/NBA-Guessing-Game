@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nbardle - The NBA Player Guessing Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="landing-page">
+    <div class="landing-container">
+        <div class="landing-content">
+            <!-- Logo -->
+            <h1 class="logo">
+                <span class="logo-letter">N</span><span class="logo-letter">b</span><span class="logo-letter">a</span><span class="logo-letter">r</span><span class="logo-letter">d</span><span class="logo-letter">l</span><span class="logo-letter">e</span>
+            </h1>
+
+            <!-- Tagline -->
+            <p class="tagline">The NBA Player Guessing Game</p>
+
+            <!-- Difficulty Selection -->
+            <div class="difficulty-section">
+                <p class="difficulty-label">Select Difficulty</p>
+                <div class="difficulty-buttons">
+                    <button class="diff-btn active" data-diff="easy">Easy</button>
+                    <button class="diff-btn" data-diff="medium">Medium</button>
+                    <button class="diff-btn" data-diff="hard">Hard</button>
+                </div>
+                <p class="difficulty-desc" id="diff-desc">Stars only (15+ PPG)</p>
+            </div>
+
+            <!-- Play Buttons -->
+            <div class="play-buttons">
+                <a href="game.html?diff=easy" class="play-btn" id="endless-btn">Endless Mode</a>
+                <a href="game.html?mode=daily" class="play-btn daily-btn">Daily Challenge</a>
+            </div>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="landing-footer">
+            <span class="footer-date">2026-01-20</span>
+            <span class="footer-number">No. 1427</span>
+        </div>
+    </div>
+
+    <script>
+        const diffDescriptions = {
+            easy: 'Stars only (15+ PPG)',
+            medium: 'Starters & key rotation (8+ PPG)',
+            hard: 'All rotation players (includes bench)'
+        };
+
+        const diffBtns = document.querySelectorAll('.diff-btn');
+        const diffDesc = document.getElementById('diff-desc');
+        const endlessBtn = document.getElementById('endless-btn');
+
+        diffBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                diffBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const diff = btn.dataset.diff;
+                diffDesc.textContent = diffDescriptions[diff];
+                endlessBtn.href = `game.html?diff=${diff}`;
+            });
+        });
+    </script>
+</body>
+</html>
