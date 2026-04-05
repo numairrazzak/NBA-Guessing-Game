@@ -26,10 +26,15 @@ jobs:
       - name: Run data refresh script
         run: python refresh_data.py
 
+      - name: Update date in index.html
+        run: |
+          TODAY=$(date +'%B %-d, %Y')
+          sed -i "s/Updated: [^<]*/Updated: $TODAY/" index.html
+
       - name: Commit and push if changed
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add nba_players_2025-26_stats.csv
+          git add nba_players_2025-26_stats.csv index.html
           git diff --staged --quiet || git commit -m "Update NBA stats data"
           git push
